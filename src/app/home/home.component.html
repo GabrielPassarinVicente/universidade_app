@@ -1,0 +1,26 @@
+<nav class="navbar">
+  <div class="navbar-logo">
+    <a routerLink="/">Universidade</a>
+  </div>
+
+  <button class="menu-toggle" (click)="toggleMenu()">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <ul class="nav-links" [class.active]="isMenuOpen">
+    <li>
+      <a routerLink="/alunos" routerLinkActive="active-link" (click)="closeMenu()">Aluno</a>
+    </li>
+    <li>
+      <a routerLink="/cursos" routerLinkActive="active-link" (click)="closeMenu()">Curso</a>
+    </li>
+    <li>
+      <a routerLink="/professores" routerLinkActive="active-link" (click)="closeMenu()">Professor</a>
+    </li>
+    <li>
+      <a (click)="logout()" class="logout-link">Sair</a>
+    </li>
+  </ul>
+</nav>

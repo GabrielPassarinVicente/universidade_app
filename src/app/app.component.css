@@ -1,0 +1,6 @@
+.conteudo-principal {
+  padding: 20px;       /* Espaço interno */
+  max-width: 1200px;   /* Largura máxima para não esticar demais em monitores grandes */
+  margin: 0 auto;      /* Centraliza o conteúdo no meio da tela */
+  min-height: 80vh;    /* Garante uma altura mínima */
+}

@@ -1,0 +1,61 @@
+<div class="container-geral">
+
+  <div *ngIf="!mostrarFormulario">
+    <div class="cabecalho">
+      <h2>Lista de Alunos</h2>
+      <button class="btn-verde" (click)="exibirFormulario()">+ Novo Aluno</button>
+      
+    </div>
+
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Curso</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let aluno of listaAlunos">
+          <td>{{ aluno.nome }}</td>
+          <td>{{ aluno.email }}</td>
+          <td>{{ aluno.curso }}</td>
+          <td class="acoes-coluna">
+            <button class="btn-azul" (click)="editar(aluno)">Editar</button>
+            <button class="btn-vermelho" (click)="deletarAluno(aluno.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="mostrarFormulario" class="area-formulario">
+    <h2>Cadastrar Novo Aluno</h2>
+    
+    <form [formGroup]="alunoForm" (ngSubmit)="salvarAluno()">
+      
+      <div class="campo">
+        <label>Nome Completo:</label>
+        <input type="text" formControlName="nome" placeholder="Digite o nome do aluno">
+      </div>
+
+      <div class="campo">
+        <label>E-mail:</label>
+        <input type="email" formControlName="email" placeholder="exemplo@email.com">
+      </div>
+
+      <div class="campo">
+        <label>Curso:</label>
+        <input type="text" formControlName="curso" placeholder="Ex: Direito">
+      </div>
+
+      <div class="botoes">
+        <button type="submit" class="btn-verde" [disabled]="alunoForm.invalid">Salvar</button>
+        <button type="button" class="btn-cinza" (click)="cancelar()">Cancelar</button>
+      </div>
+    
+    </form>
+  </div>
+
+</div>

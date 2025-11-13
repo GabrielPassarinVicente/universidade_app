@@ -1,0 +1,60 @@
+<div class="container-geral">
+
+  <div *ngIf="!mostrarFormulario">
+    <div class="cabecalho">
+      <h2>Lista de Professores</h2>
+      <button class="btn-verde" (click)="abrirFormulario()">+ Novo Professor</button>
+    </div>
+
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Departamento</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prof of listaProfessores">
+          <td>{{ prof.nome }}</td>
+          <td>{{ prof.email }}</td>
+          <td>{{ prof.departamento }}</td>
+          <td class="acoes-coluna">
+            <button class="btn-azul" (click)="editar(prof)">Editar</button>
+            <button class="btn-vermelho" (click)="deletar(prof.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="mostrarFormulario" class="area-formulario">
+    <h2>Cadastrar Professor</h2>
+    
+    <form [formGroup]="formulario" (ngSubmit)="salvar()">
+      
+      <div class="campo">
+        <label>Nome:</label>
+        <input type="text" formControlName="nome" placeholder="Nome do Professor">
+      </div>
+
+      <div class="campo">
+        <label>Email Institucional:</label>
+        <input type="email" formControlName="email" placeholder="prof@escola.com">
+      </div>
+
+      <div class="campo">
+        <label>Departamento:</label>
+        <input type="text" formControlName="departamento" placeholder="Ex: Exatas">
+      </div>
+
+      <div class="botoes">
+        <button type="submit" class="btn-verde" [disabled]="formulario.invalid">Salvar</button>
+        <button type="button" class="btn-cinza" (click)="cancelar()">Cancelar</button>
+      </div>
+    
+    </form>
+  </div>
+
+</div>
