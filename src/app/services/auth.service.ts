@@ -5,17 +5,15 @@ import { tap } from 'rxjs/operators';
 import { environment } from '../../enviroments/enviroments';
 
 export interface LoginRequest {
-  email: string;
+  username: string;
   password: string;
 }
 
 export interface LoginResponse {
   token: string;
-  usuario: {
-    id: number;
-    nome: string;
-    email: string;
-  };
+  expiration: string;
+  username: string;
+  email: string;
 }
 
 @Injectable({
@@ -23,7 +21,7 @@ export interface LoginResponse {
 })
 export class AuthService {
   
-private apiUrl = `${environment.apiUrl}/cursos`;
+private apiUrl = `${environment.apiUrl}/api/auth`;
   private tokenKey = 'auth_token';
   private usuarioKey = 'auth_usuario';
   
@@ -37,11 +35,20 @@ private apiUrl = `${environment.apiUrl}/cursos`;
   }
 
   login(credentials: LoginRequest): Observable<LoginResponse> {
+    console.log('=== TENTANDO LOGIN ===');
+    console.log('URL da API:', `${this.apiUrl}/login`);
+    console.log('Credenciais:', credentials);
+    
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials)
       .pipe(
         tap(response => {
+          console.log('Login bem-sucedido!', response);
           localStorage.setItem(this.tokenKey, response.token);
-          localStorage.setItem(this.usuarioKey, JSON.stringify(response.usuario));
+          localStorage.setItem(this.usuarioKey, JSON.stringify({
+            username: response.username,
+            email: response.email,
+            expiration: response.expiration
+          }));
           this.isAuthenticatedSubject.next(true);
         })
       );

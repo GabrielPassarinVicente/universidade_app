@@ -17,7 +17,7 @@ export class LoginComponent {
   carregando: boolean = false;
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    username: new FormControl('', [Validators.required, Validators.minLength(3)]),
     password: new FormControl('', [Validators.required, Validators.minLength(4)])
   });
 
@@ -27,27 +27,45 @@ export class LoginComponent {
   ) {}
 
   onSubmit() {
+    console.log('=== FORMULÁRIO SUBMETIDO ===');
+    console.log('Formulário válido:', this.loginForm.valid);
+    console.log('Valores do formulário:', this.loginForm.value);
+    
     if (this.loginForm.valid) {
       this.carregando = true;
       this.mensagemErro = '';
 
       const credentials = {
-        email: this.loginForm.value.email || '',
+        username: this.loginForm.value.username || '',
         password: this.loginForm.value.password || ''
       };
 
+      console.log('Chamando serviço de login...');
+      
       this.authService.login(credentials).subscribe({
         next: (response) => {
+          console.log('Login realizado com sucesso!');
           this.carregando = false;
           this.router.navigate(['/alunos']);
         },
         error: (erro) => {
           this.carregando = false;
-          console.error('Erro no login:', erro);
-          this.mensagemErro = 'Email ou senha inválidos. Tente novamente.';
+          console.error('=== ERRO NO LOGIN ===');
+          console.error('Status:', erro.status);
+          console.error('Mensagem:', erro.message);
+          console.error('Erro completo:', erro);
+          
+          if (erro.status === 0) {
+            this.mensagemErro = 'Não foi possível conectar ao servidor. Verifique se a API está rodando.';
+          } else if (erro.status === 401) {
+            this.mensagemErro = 'Email ou senha inválidos.';
+          } else {
+            this.mensagemErro = `Erro ao fazer login: ${erro.message}`;
+          }
         }
       });
     } else {
+      console.log('Formulário inválido');
       this.mensagemErro = 'Por favor, preencha todos os campos corretamente.';
     }
   }

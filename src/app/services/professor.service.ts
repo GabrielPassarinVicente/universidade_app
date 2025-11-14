@@ -4,10 +4,8 @@ import { Observable } from 'rxjs';
 import { environment } from '../../enviroments/enviroments';
 
 export interface Professor {
-  id: number;
+  idProfessores: number;
   nome: string;
-  email: string;
-  departamento: string;
 }
 
 @Injectable({
@@ -15,7 +13,7 @@ export interface Professor {
 })
 export class ProfessorService {
   
-private apiUrl = `${environment.apiUrl}/cursos`;
+private apiUrl = `${environment.apiUrl}/api/professores`;
   constructor(private http: HttpClient) {}
 
   listar(): Observable<Professor[]> {
@@ -31,7 +29,7 @@ private apiUrl = `${environment.apiUrl}/cursos`;
   }
 
   atualizar(professor: Professor): Observable<Professor> {
-    return this.http.put<Professor>(`${this.apiUrl}/${professor.id}`, professor);
+    return this.http.put<Professor>(`${this.apiUrl}/${professor.idProfessores}`, professor);
   }
 
   deletar(id: number): Observable<void> {

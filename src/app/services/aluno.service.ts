@@ -5,9 +5,13 @@ import { environment } from '../../enviroments/enviroments';
 
 export interface Aluno {
     id: number;
-    nome: string;
+    nomeCompleto: string;
+    dataNascimento: string;
+    cpf: string;
+    endereco: string;
+    telefone: string;
     email: string;
-    curso: string;
+    dataMatricula: string;
 }
 
 @Injectable({
@@ -15,7 +19,7 @@ export interface Aluno {
 })
 export class AlunoService {
 
-    private apiUrl = `${environment.apiUrl}/cursos`;
+    private apiUrl = `${environment.apiUrl}/api/alunos`;
     constructor(private http: HttpClient) { }
 
     listar(): Observable<Aluno[]> {

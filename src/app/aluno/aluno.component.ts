@@ -34,9 +34,12 @@ idEmEdicao: number | null = null;
   }
 
   alunoForm = new FormGroup({
-    nome: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    curso: new FormControl('', Validators.required)
+    nomeCompleto: new FormControl('', Validators.required),
+    dataNascimento: new FormControl('', Validators.required),
+    cpf: new FormControl('', Validators.required),
+    endereco: new FormControl('', Validators.required),
+    telefone: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email])
   });
   listaAlunos: Aluno[] = [];
 
@@ -52,23 +55,39 @@ idEmEdicao: number | null = null;
       
       const alunoParaSalvar: Aluno = {
         id: this.idEmEdicao ? this.idEmEdicao : 0,
-        nome: dados.nome || '',
+        nomeCompleto: dados.nomeCompleto || '',
+        dataNascimento: dados.dataNascimento || '',
+        cpf: dados.cpf || '',
+        endereco: dados.endereco || '',
+        telefone: dados.telefone || '',
         email: dados.email || '',
-        curso: dados.curso || ''
+        dataMatricula: new Date().toISOString()
       };
 
       if (this.idEmEdicao !== null) {
-        this.alunoService.atualizar(alunoParaSalvar).subscribe(() => {
-          this.carregarAlunos();
-          this.mostrarFormulario = false;
-          this.idEmEdicao = null;
-          alert('Aluno atualizado com sucesso!');
+        this.alunoService.atualizar(alunoParaSalvar).subscribe({
+          next: () => {
+            this.carregarAlunos();
+            this.mostrarFormulario = false;
+            this.idEmEdicao = null;
+            alert('Aluno atualizado com sucesso!');
+          },
+          error: (erro) => {
+            console.error('Erro ao atualizar aluno', erro);
+            alert('Erro ao atualizar aluno: ' + (erro.error?.message || erro.message));
+          }
         });
       } else {
-        this.alunoService.criar(alunoParaSalvar).subscribe(() => {
-          this.carregarAlunos();
-          this.mostrarFormulario = false;
-          alert('Aluno salvo com sucesso!');
+        this.alunoService.criar(alunoParaSalvar).subscribe({
+          next: () => {
+            this.carregarAlunos();
+            this.mostrarFormulario = false;
+            alert('Aluno salvo com sucesso!');
+          },
+          error: (erro) => {
+            console.error('Erro ao criar aluno', erro);
+            alert('Erro ao criar aluno: ' + (erro.error?.message || erro.message));
+          }
         });
       }
     } else {
@@ -85,16 +104,35 @@ idEmEdicao: number | null = null;
     this.idEmEdicao = aluno.id;
 
     this.alunoForm.setValue({
-      nome: aluno.nome,
-      email: aluno.email,
-      curso: aluno.curso
+      nomeCompleto: aluno.nomeCompleto,
+      dataNascimento: aluno.dataNascimento.split('T')[0],
+      cpf: aluno.cpf,
+      endereco: aluno.endereco,
+      telefone: aluno.telefone,
+      email: aluno.email
     });
   }
   deletarAluno(id: number) {
     if (confirm('Tem certeza que deseja deletar este aluno?')) {
-      this.alunoService.deletar(id).subscribe(() => {
-        this.carregarAlunos();
-        alert('Aluno deletado com sucesso!');
+      this.alunoService.deletar(id).subscribe({
+        next: () => {
+          this.carregarAlunos();
+          alert('Aluno deletado com sucesso!');
+        },
+        error: (erro) => {
+          console.error('Erro ao deletar aluno', erro);
+          let mensagemErro = 'Erro desconhecido ao deletar aluno';
+          
+          if (erro.status === 500) {
+            mensagemErro = 'Não é possível deletar este aluno pois ele está vinculado a cursos ou outras entidades. Remova os vínculos primeiro.';
+          } else if (erro.error?.message) {
+            mensagemErro = erro.error.message;
+          } else if (erro.message) {
+            mensagemErro = erro.message;
+          }
+          
+          alert('Erro ao deletar aluno: ' + mensagemErro);
+        }
       });
     }
   }

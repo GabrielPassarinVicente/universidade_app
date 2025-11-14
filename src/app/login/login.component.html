@@ -3,7 +3,6 @@
         <h2>Bem-vindo</h2>
         <p>Faça login para continuar</p>
 
-        <!-- Mensagem de erro -->
         <div *ngIf="mensagemErro" class="mensagem-erro">
             {{ mensagemErro }}
         </div>
@@ -11,11 +10,11 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
             <div class="form-group">
-                <label for="email">Email</label>
-                <input id="email" type="email" formControlName="email" placeholder="seu@email.com"
-                    [class.invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-                <small *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-                    Email inválido.
+                <label for="username">Usuário</label>
+                <input id="username" type="text" formControlName="username" placeholder="Digite seu usuário"
+                    [class.invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                    Usuário deve ter no mínimo 3 caracteres.
                 </small>
             </div>
 

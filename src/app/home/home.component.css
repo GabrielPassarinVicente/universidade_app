@@ -1,22 +1,19 @@
-/* --- Variáveis para facilitar a troca de cores --- */
 :host {
   --nav-bg: #2c3e50;
   --nav-color: #ecf0f1;
   --accent-color: #3498db;
 }
 
-/* Container Principal */
 .navbar {
   display: flex;
-  justify-content: space-between; /* Espaça Logo e Links */
+  justify-content: space-between;
   align-items: center;
   background-color: var(--nav-bg);
   padding: 1rem 2rem;
   color: var(--nav-color);
-  position: relative; /* Necessário para o posicionamento mobile */
+  position: relative;
 }
 
-/* Logo */
 .navbar-logo a {
   font-size: 1.5rem;
   font-weight: bold;
@@ -24,13 +21,12 @@
   color: var(--nav-color);
 }
 
-/* Links (Desktop) */
 .nav-links {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 20px; /* Espaço entre os links */
+  gap: 20px;
 }
 
 .nav-links li a {
@@ -41,18 +37,15 @@
   padding: 0.5rem;
 }
 
-/* Efeito Hover */
 .nav-links li a:hover {
   color: var(--accent-color);
 }
 
-/* Link Ativo (Quando o usuário está na rota) */
 .active-link {
   border-bottom: 2px solid var(--accent-color);
   color: var(--accent-color) !important;
 }
 
-/* Botão de logout */
 .logout-link {
   cursor: pointer;
   color: #e74c3c !important;
@@ -62,9 +55,8 @@
   color: #c0392b !important;
 }
 
-/* --- Menu Mobile (Hambúrguer) --- */
 .menu-toggle {
-  display: none; /* Escondido no Desktop */
+  display: none;
   flex-direction: column;
   gap: 5px;
   background: none;
@@ -79,26 +71,24 @@
   border-radius: 2px;
 }
 
-/* --- Responsividade (Media Queries) --- */
 @media (max-width: 768px) {
   .menu-toggle {
-    display: flex; /* Mostra o hambúrguer */
+    display: flex;
   }
 
   .nav-links {
-    display: none; /* Esconde os links inicialmente */
+    display: none;
     flex-direction: column;
     width: 100%;
     position: absolute;
-    top: 100%; /* Logo abaixo da barra */
+    top: 100%;
     left: 0;
     background-color: var(--nav-bg);
     padding: 1rem 0;
     text-align: center;
-    z-index: 100; /* Garante que fique acima do conteúdo */
+    z-index: 100;
   }
 
-  /* Quando a classe .active é adicionada pelo Angular */
   .nav-links.active {
     display: flex;
   }
@@ -107,24 +97,16 @@
     margin: 10px 0;
   }
 }
-/* navbar.component.css */
 
-/* --- Encontre a parte @media e MUDE isso: --- */
 @media (max-width: 768px) {
-  /* .nav-links {
-     display: none;  <-- COMENTE ESSA LINHA ou apague
-  } 
-  */
-  
-  /* Adicione isso para garantir que apareça */
   .nav-links {
     display: flex; 
-    flex-direction: column; /* Fica um embaixo do outro se a tela for pequena */
+    flex-direction: column;
     position: static;
     background-color: transparent;
   }
   
   .menu-toggle {
-    display: none; /* Esconde o botão hambúrguer */
+    display: none;
   }
 }

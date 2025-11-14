@@ -9,20 +9,18 @@
     <table class="tabela">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Nome</th>
-          <th>Email</th>
-          <th>Departamento</th>
           <th>Ações</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let prof of listaProfessores">
+          <td>{{ prof.idProfessores }}</td>
           <td>{{ prof.nome }}</td>
-          <td>{{ prof.email }}</td>
-          <td>{{ prof.departamento }}</td>
           <td class="acoes-coluna">
             <button class="btn-azul" (click)="editar(prof)">Editar</button>
-            <button class="btn-vermelho" (click)="deletar(prof.id)">Excluir</button>
+            <button class="btn-vermelho" (click)="deletar(prof.idProfessores)">Excluir</button>
           </td>
         </tr>
       </tbody>
@@ -37,16 +35,6 @@
       <div class="campo">
         <label>Nome:</label>
         <input type="text" formControlName="nome" placeholder="Nome do Professor">
-      </div>
-
-      <div class="campo">
-        <label>Email Institucional:</label>
-        <input type="email" formControlName="email" placeholder="prof@escola.com">
-      </div>
-
-      <div class="campo">
-        <label>Departamento:</label>
-        <input type="text" formControlName="departamento" placeholder="Ex: Exatas">
       </div>
 
       <div class="botoes">

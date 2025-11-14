@@ -18,13 +18,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let curso of listaCursos">
-          <td>{{ curso.id }}</td>
+          <td>{{ curso.idCursos }}</td>
           <td>{{ curso.nome }}</td>
           <td>{{ curso.cargaHoraria }}</td>
-          <td>{{ getNomeDepartamento(curso.departamentoId) }}</td>
+          <td>{{ getNomeDepartamento(curso.departamentos_idDepartamentos) }}</td>
           <td class="acoes-coluna">
             <button class="btn-azul" (click)="edita(curso)">Editar</button>
-            <button class="btn-vermelho" (click)="deletar(curso.id)">Excluir</button>
+            <button class="btn-vermelho" (click)="deletar(curso.idCursos)">Excluir</button>
           </td>
         </tr>
       </tbody>
@@ -48,9 +48,9 @@
 
       <div class="campo">
         <label>Departamento:</label>
-        <select formControlName="departamentoId">
-          <option [value]="null" disabled>Selecione um departamento</option>
-          <option *ngFor="let depto of listaDepartamentos" [value]="depto.id">
+        <select formControlName="departamentos_idDepartamentos">
+          <option [value]="null" disabled selected>Selecione um departamento</option>
+          <option *ngFor="let depto of listaDepartamentos" [ngValue]="depto.id">
             {{ depto.nome }}
           </option>
         </select>

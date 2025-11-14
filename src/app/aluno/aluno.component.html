@@ -10,17 +10,19 @@
     <table class="tabela">
       <thead>
         <tr>
-          <th>Nome</th>
+          <th>Nome Completo</th>
+          <th>CPF</th>
           <th>Email</th>
-          <th>Curso</th>
+          <th>Telefone</th>
           <th>Ações</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let aluno of listaAlunos">
-          <td>{{ aluno.nome }}</td>
+          <td>{{ aluno.nomeCompleto }}</td>
+          <td>{{ aluno.cpf }}</td>
           <td>{{ aluno.email }}</td>
-          <td>{{ aluno.curso }}</td>
+          <td>{{ aluno.telefone }}</td>
           <td class="acoes-coluna">
             <button class="btn-azul" (click)="editar(aluno)">Editar</button>
             <button class="btn-vermelho" (click)="deletarAluno(aluno.id)">Excluir</button>
@@ -37,17 +39,32 @@
       
       <div class="campo">
         <label>Nome Completo:</label>
-        <input type="text" formControlName="nome" placeholder="Digite o nome do aluno">
+        <input type="text" formControlName="nomeCompleto" placeholder="Digite o nome completo">
+      </div>
+
+      <div class="campo">
+        <label>Data de Nascimento:</label>
+        <input type="date" formControlName="dataNascimento">
+      </div>
+
+      <div class="campo">
+        <label>CPF:</label>
+        <input type="text" formControlName="cpf" placeholder="000.000.000-00">
+      </div>
+
+      <div class="campo">
+        <label>Endereço:</label>
+        <input type="text" formControlName="endereco" placeholder="Rua, número, bairro">
+      </div>
+
+      <div class="campo">
+        <label>Telefone:</label>
+        <input type="text" formControlName="telefone" placeholder="(00) 00000-0000">
       </div>
 
       <div class="campo">
         <label>E-mail:</label>
         <input type="email" formControlName="email" placeholder="exemplo@email.com">
-      </div>
-
-      <div class="campo">
-        <label>Curso:</label>
-        <input type="text" formControlName="curso" placeholder="Ex: Direito">
       </div>
 
       <div class="botoes">

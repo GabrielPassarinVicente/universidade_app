@@ -33,9 +33,7 @@ idEmEdicao: number | null = null;
   }
 
   formulario = new FormGroup({
-    nome: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    departamento: new FormControl('', Validators.required)
+    nome: new FormControl('', Validators.required)
   });
 
   listaProfessores: Professor[] = [];
@@ -53,12 +51,10 @@ idEmEdicao: number | null = null;
 
 editar(professor: Professor) {
     this.mostrarFormulario = true;
-    this.idEmEdicao = professor.id;
+    this.idEmEdicao = professor.idProfessores;
 
     this.formulario.setValue({
-      nome: professor.nome,
-      email: professor.email,
-      departamento: professor.departamento
+      nome: professor.nome
     });
   }
   salvar() {
@@ -66,24 +62,34 @@ editar(professor: Professor) {
       const dados = this.formulario.value;
       
       const professorParaSalvar: Professor = {
-        id: this.idEmEdicao ? this.idEmEdicao : 0,
-        nome: dados.nome || '',
-        email: dados.email || '',
-        departamento: dados.departamento || ''
+        idProfessores: this.idEmEdicao ? this.idEmEdicao : 0,
+        nome: dados.nome || ''
       };
 
       if (this.idEmEdicao !== null) {
-        this.professorService.atualizar(professorParaSalvar).subscribe(() => {
-          this.carregarProfessores();
-          this.mostrarFormulario = false;
-          this.idEmEdicao = null;
-          alert('Professor atualizado com sucesso!');
+        this.professorService.atualizar(professorParaSalvar).subscribe({
+          next: () => {
+            this.carregarProfessores();
+            this.mostrarFormulario = false;
+            this.idEmEdicao = null;
+            alert('Professor atualizado com sucesso!');
+          },
+          error: (erro) => {
+            console.error('Erro ao atualizar professor', erro);
+            alert('Erro ao atualizar professor: ' + (erro.error?.message || erro.message));
+          }
         });
       } else {
-        this.professorService.criar(professorParaSalvar).subscribe(() => {
-          this.carregarProfessores();
-          this.mostrarFormulario = false;
-          alert('Professor salvo com sucesso!');
+        this.professorService.criar(professorParaSalvar).subscribe({
+          next: () => {
+            this.carregarProfessores();
+            this.mostrarFormulario = false;
+            alert('Professor salvo com sucesso!');
+          },
+          error: (erro) => {
+            console.error('Erro ao criar professor', erro);
+            alert('Erro ao criar professor: ' + (erro.error?.message || erro.message));
+          }
         });
       }
     } else {
@@ -93,9 +99,25 @@ editar(professor: Professor) {
 
   deletar(id: number) {
     if (confirm('Tem certeza que deseja deletar este professor?')) {
-      this.professorService.deletar(id).subscribe(() => {
-        this.carregarProfessores();
-        alert('Professor deletado com sucesso!');
+      this.professorService.deletar(id).subscribe({
+        next: () => {
+          this.carregarProfessores();
+          alert('Professor deletado com sucesso!');
+        },
+        error: (erro) => {
+          console.error('Erro ao deletar professor', erro);
+          let mensagemErro = 'Erro desconhecido ao deletar professor';
+          
+          if (erro.status === 500) {
+            mensagemErro = 'Não é possível deletar este professor pois ele está vinculado a cursos ou outras entidades. Remova os vínculos primeiro.';
+          } else if (erro.error?.message) {
+            mensagemErro = erro.error.message;
+          } else if (erro.message) {
+            mensagemErro = erro.message;
+          }
+          
+          alert('Erro ao deletar professor: ' + mensagemErro);
+        }
       });
     }
   }

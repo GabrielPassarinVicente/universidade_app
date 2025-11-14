@@ -14,7 +14,6 @@
   margin-bottom: 20px;
 }
 
-/* Tabela */
 .tabela-alunos {
   width: 100%;
   border-collapse: collapse;
@@ -34,10 +33,9 @@
 }
 
 .tabela-alunos tr:hover {
-  background-color: #f1f1f1; /* Efeito ao passar o mouse */
+  background-color: #f1f1f1;
 }
 
-/* Botões */
 button {
   cursor: pointer;
   border: none;
@@ -52,19 +50,19 @@ button:hover {
 }
 
 .btn-adicionar {
-  background-color: #27ae60; /* Verde */
+  background-color: #27ae60;
   color: white;
   font-weight: bold;
 }
 
 .btn-editar {
-  background-color: #3498db; /* Azul */
+  background-color: #3498db;
   color: white;
   margin-right: 5px;
 }
 
 .btn-remover {
-  background-color: #e74c3c; /* Vermelho */
+  background-color: #e74c3c;
   color: white;
 }
 
@@ -77,7 +75,7 @@ button:hover {
   color: #777;
   margin-top: 20px;
 }
-/* Estilos do Formulário */
+
 .form-container {
   max-width: 500px;
   margin: 0 auto;
@@ -103,7 +101,7 @@ button:hover {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* Importante para não estourar a largura */
+  box-sizing: border-box;
 }
 
 .botoes-form {
@@ -115,7 +113,7 @@ button:hover {
 .btn-salvar {
   background-color: #27ae60;
   color: white;
-  flex: 1; /* Ocupa espaço igual */
+  flex: 1;
 }
 
 .btn-cancelar {
@@ -144,12 +142,10 @@ button:disabled {
   margin-bottom: 20px;
 }
 
-/* Tabela */
 .tabela { width: 100%; border-collapse: collapse; }
 .tabela th, .tabela td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
 .tabela th { background-color: #f4f4f4; }
 
-/* Formulário */
 .area-formulario {
   padding: 20px;
   background-color: #f9f9f9;
@@ -171,30 +167,26 @@ button:disabled {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* Garante que não estoure a largura */
+  box-sizing: border-box;
 }
 
-/* Botões */
 button { padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white; }
 .btn-verde { background-color: #28a745; }
 .btn-vermelho { background-color: #dc3545; padding: 5px 10px; font-size: 0.8em;}
 .btn-cinza { background-color: #6c757d; margin-left: 10px; }
 button:disabled { background-color: #ccc; cursor: not-allowed; }
 
-/* Adicione ao seu CSS existente */
-
 .btn-azul {
   background-color: #3498db;
   color: white;
-  margin-right: 5px; /* Espaço entre o editar e o excluir */
+  margin-right: 5px;
 }
 
 .btn-azul:hover {
   background-color: #2980b9;
 }
 
-/* Para garantir que os botões caibam na célula */
 .acoes-coluna {
-  white-space: nowrap; /* Não deixa quebrar linha */
+  white-space: nowrap;
   width: 150px;
 }
