@@ -1,0 +1,58 @@
+<div class="container py-4 container">
+  <h2 class="mb-3">Departamentos</h2>
+
+  <button class="btn btn btn-primary mb-3" (click)="abrirFormulario()">Novo Departamento</button>
+
+  <div *ngIf="mostrarFormulario" class="form-box card p-3 mb-4">
+    <h3 *ngIf="!idEmEdicao">Criar Departamento</h3>
+    <h3 *ngIf="idEmEdicao">Editar Departamento</h3>
+
+    <form [formGroup]="formulario" (ngSubmit)="salvar()">
+      <div class="mb-3">
+        <label class="form-label">Nome</label>
+        <input formControlName="nome" class="form-control" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Código</label>
+        <input formControlName="codigo" class="form-control" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Descrição</label>
+        <textarea formControlName="descricao" class="form-control"></textarea>
+      </div>
+
+      <div class="actions d-flex gap-2 justify-content-end">
+        <button type="submit" class="btn primary btn btn-primary">Salvar</button>
+        <button type="button" class="btn btn btn-secondary" (click)="cancelar()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-responsive">
+    <table class="lista table table-hover align-middle">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nome</th>
+          <th>Código</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of listaDepartamentos">
+          <td>{{ d.id }}</td>
+          <td>{{ d.nome }}</td>
+          <td>{{ d.codigo }}</td>
+          <td>{{ d.descricao }}</td>
+          <td>
+            <button class="btn btn btn-sm btn-outline-primary" (click)="edita(d)">Editar</button>
+            <button class="btn danger btn btn-danger btn-sm" (click)="deletar(d.id)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

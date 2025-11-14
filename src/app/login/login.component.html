@@ -1,35 +1,37 @@
-<div class="login-container">
-    <div class="login-card">
-        <h2>Bem-vindo</h2>
-        <p>Faça login para continuar</p>
+<div class="login-container container d-flex justify-content-center align-items-center vh-100">
+    <div class="login-card card p-4 shadow-sm" style="max-width:420px; width:100%;">
+        <h2 class="mb-1">Bem-vindo</h2>
+        <p class="text-muted mb-3">Faça login para continuar</p>
 
-        <div *ngIf="mensagemErro" class="mensagem-erro">
+        <div *ngIf="mensagemErro" class="mensagem-erro alert alert-danger p-2">
             {{ mensagemErro }}
         </div>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-            <div class="form-group">
-                <label for="username">Usuário</label>
+            <div class="form-group mb-3">
+                <label for="username" class="form-label">Usuário</label>
                 <input id="username" type="text" formControlName="username" placeholder="Digite seu usuário"
-                    [class.invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
-                <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                    class="form-control" [class.invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="text-danger d-block mt-1">
                     Usuário deve ter no mínimo 3 caracteres.
                 </small>
             </div>
 
-            <div class="form-group">
-                <label for="password">Senha</label>
+            <div class="form-group mb-3">
+                <label for="password" class="form-label">Senha</label>
                 <input id="password" type="password" formControlName="password" placeholder="******"
-                    [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-                <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                    class="form-control" [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger d-block mt-1">
                     Senha deve ter no mínimo 4 caracteres.
                 </small>
             </div>
 
-            <button type="submit" [disabled]="loginForm.invalid || carregando">
-                {{ carregando ? 'ENTRANDO...' : 'ENTRAR' }}
-            </button>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid || carregando">
+                  {{ carregando ? 'ENTRANDO...' : 'ENTRAR' }}
+              </button>
+            </div>
         </form>
     </div>
 </div>

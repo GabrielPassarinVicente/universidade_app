@@ -3,4 +3,12 @@
   max-width: 1200px;   /* Largura máxima para não esticar demais em monitores grandes */
   margin: 0 auto;      /* Centraliza o conteúdo no meio da tela */
   min-height: 80vh;    /* Garante uma altura mínima */
+  /* deixa espaço à esquerda para a sidebar (navbar) */
+  margin-left: 240px;
+}
+
+@media (max-width: 900px) {
+  .conteudo-principal {
+    margin-left: 0; /* em telas pequenas a navbar vira topo */
+  }
 }

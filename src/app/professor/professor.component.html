@@ -1,47 +1,50 @@
-<div class="container-geral">
+<div class="container-geral container py-4">
 
   <div *ngIf="!mostrarFormulario">
-    <div class="cabecalho">
-      <h2>Lista de Professores</h2>
-      <button class="btn-verde" (click)="abrirFormulario()">+ Novo Professor</button>
+    <div class="cabecalho d-flex align-items-center justify-content-between mb-3">
+      <h2 class="mb-0">Lista de Professores</h2>
+      <button class="btn-verde btn btn-success" (click)="abrirFormulario()">+ Novo Professor</button>
     </div>
 
-    <table class="tabela">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let prof of listaProfessores">
-          <td>{{ prof.idProfessores }}</td>
-          <td>{{ prof.nome }}</td>
-          <td class="acoes-coluna">
-            <button class="btn-azul" (click)="editar(prof)">Editar</button>
-            <button class="btn-vermelho" (click)="deletar(prof.idProfessores)">Excluir</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="tabela table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prof of listaProfessores">
+            <td>{{ prof.idProfessores }}</td>
+            <td>{{ prof.nome }}</td>
+            <td class="acoes-coluna text-center">
+              <button class="btn-azul btn btn-primary btn-sm me-2" (click)="editar(prof)">Editar</button>
+              <button class="btn-vermelho btn btn-danger btn-sm" (click)="deletar(prof.idProfessores)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <div *ngIf="mostrarFormulario" class="area-formulario">
-    <h2>Cadastrar Professor</h2>
-    
-    <form [formGroup]="formulario" (ngSubmit)="salvar()">
-      
-      <div class="campo">
-        <label>Nome:</label>
-        <input type="text" formControlName="nome" placeholder="Nome do Professor">
+  <div *ngIf="mostrarFormulario" class="area-formulario card p-3">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h2 class="mb-0">Cadastrar Professor</h2>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()">Voltar</button>
+    </div>
+
+    <form [formGroup]="formulario" (ngSubmit)="salvar()" class="row g-3">
+      <div class="col-md-12 campo">
+        <label class="form-label">Nome:</label>
+        <input type="text" class="form-control" formControlName="nome" placeholder="Nome do Professor">
       </div>
 
-      <div class="botoes">
-        <button type="submit" class="btn-verde" [disabled]="formulario.invalid">Salvar</button>
-        <button type="button" class="btn-cinza" (click)="cancelar()">Cancelar</button>
+      <div class="col-12 d-flex gap-2 botoes justify-content-end mt-2">
+        <button type="submit" class="btn-verde btn btn-success" [disabled]="formulario.invalid">Salvar</button>
+        <button type="button" class="btn-cinza btn btn-secondary" (click)="cancelar()">Cancelar</button>
       </div>
-    
     </form>
   </div>
 
