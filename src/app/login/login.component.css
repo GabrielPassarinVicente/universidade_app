@@ -1,103 +1,230 @@
-/* Fundo da tela inteira */
+/* Definição de Cores Neutras */
+:root {
+    --primary-color-start: #4a5568; /* Cinza Azulado */
+    --primary-color-end: #2d3748;   /* Cinza Escuro */
+    --text-color-dark: #1f2937;     /* Texto Principal Escuro */
+    --text-color-medium: #4b5563;   /* Texto Labels e etc */
+    --text-color-light: #6b7280;    /* Texto Subtítulo e Placeholder */
+    --border-color-light: #d1d5db;  /* Borda Input e Card */
+    --input-bg-color: #f9fafb;      /* Fundo do Input */
+    --card-bg-color: #ffffff;      /* Fundo do Card (branco puro) */
+    --error-color: #dc2626;         /* Cor de erro */
+    --error-bg-color: #fee2e2;      /* Fundo de erro */
+    --error-border-color: #fca5a5;  /* Borda de erro */
+}
+
+/* ------------------------------------------- */
+/* Estilos Gerais do Container de Login */
+/* ------------------------------------------- */
 .login-container {
-  display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center;     /* Centraliza verticalmente */
-  height: 100vh;           /* Ocupa 100% da altura da tela */
-  background-color: #0a67f37f; /* Cor de fundo suave */
+    min-height: 100vh;
+    background: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
 }
 
-/* O Cartão de Login */
+/* ------------------------------------------- */
+/* Estilos do Card de Login */
+/* ------------------------------------------- */
 .login-card {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra elegante */
-  width: 100%;
-  max-width: 400px; /* Largura máxima */
-  text-align: center;
+    background: var(--card-bg-color); /* Fundo branco puro para o card */
+    border-radius: 20px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.25); /* Sombra mais profunda e suave */
+    max-width: 440px;
+    width: 100%;
+    padding: 3.5rem; /* Aumentei um pouco mais o padding */
+    animation: fadeInUp 0.7s ease-out forwards; /* Animação mais suave e mantém o estado final */
+    opacity: 0; /* Começa invisível para a animação */
+    transform: translateY(30px); /* Começa um pouco abaixo */
 }
 
-h2 {
-  margin-bottom: 0.5rem;
-  color: #333;
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-p {
-  color: #666;
-  margin-bottom: 2rem;
+/* ------------------------------------------- */
+/* Estilos de Título e Subtítulo */
+/* ------------------------------------------- */
+.login-card h2 {
+    color: var(--text-color-dark);
+    font-size: 2.3rem; /* Título maior */
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.8px; /* Mais compacto */
 }
 
-/* Mensagem de erro */
-.mensagem-erro {
-  background-color: #fee;
-  color: #c33;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  border: 1px solid #fcc;
-  font-size: 0.9rem;
+.text-secondary-subtitle {
+    color: var(--text-color-light);
+    font-size: 1.05rem; /* Subtítulo um pouco maior */
+    font-weight: 400;
 }
 
-/* Grupos do Formulário */
+/* ------------------------------------------- */
+/* Estilos do Ícone (se estiver usando Font Awesome) */
+/* ------------------------------------------- */
+.text-primary-gradient {
+    background: linear-gradient(45deg, var(--primary-color-start), var(--primary-color-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    /* Para ícones, o tamanho precisa ser ajustado diretamente */
+    /* Ex: Se for Font Awesome, use classes como fa-3x */
+}
+
+/* ------------------------------------------- */
+/* Estilos do Formulário */
+/* ------------------------------------------- */
 .form-group {
-  margin-bottom: 1.5rem;
-  text-align: left;
+    margin-bottom: 1.8rem; /* Espaçamento mais generoso entre campos */
 }
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #333;
-  font-weight: 500;
+.form-label {
+    display: block;
+    margin-bottom: 0.7rem; /* Espaço entre label e input */
+    color: var(--text-color-medium);
+    font-weight: 600;
+    font-size: 0.98rem; /* Label um pouco maior */
 }
 
-input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box; /* Garante que o padding não estoure a largura */
-  font-size: 1rem;
-  transition: border-color 0.3s;
+.form-control {
+    width: 100%;
+    padding: 0.95rem 1.2rem; /* Padding aumentado para inputs */
+    border: 1px solid var(--border-color-light);
+    border-radius: 12px; /* Borda mais arredondada */
+    font-size: 1.05rem; /* Texto do input maior */
+    color: var(--text-color-dark);
+    transition: all 0.3s ease;
+    background-color: var(--input-bg-color);
 }
 
-input:focus {
-  border-color: #3498db;
-  outline: none;
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color-start);
+    background-color: var(--card-bg-color);
+    box-shadow: 0 0 0 4px rgba(var(--primary-color-start) / 20%); /* Sombra de foco mais sutil */
 }
 
-/* Estilo de erro */
-input.invalid {
-  border-color: #e74c3c;
+.form-control::placeholder {
+    color: var(--text-color-light);
+    opacity: 0.8; /* Placeholder um pouco mais transparente */
 }
 
-small {
-  color: #e74c3c;
-  font-size: 0.85rem;
-  margin-top: 5px;
-  display: block;
+.form-control.invalid {
+    border-color: var(--error-color);
+    background-color: var(--error-bg-color);
 }
 
-/* Botão */
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
+/* ------------------------------------------- */
+/* Mensagem de Erro */
+/* ------------------------------------------- */
+.text-danger {
+    color: var(--error-color);
+    font-size: 0.88rem;
+    margin-top: 0.3rem;
+    font-weight: 500;
 }
 
-button:hover {
-  background-color: #2980b9;
+.mensagem-erro {
+    background-color: var(--error-bg-color);
+    color: var(--error-color);
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    border: 1px solid var(--error-border-color);
+    margin-bottom: 1.5rem;
+    font-size: 0.92rem;
+    font-weight: 500;
 }
 
-button:disabled {
-  background-color: #bdc3c7;
-  cursor: not-allowed;
+/* ------------------------------------------- */
+/* Botão de Login */
+/* ------------------------------------------- */
+.btn-primary-gradient {
+    width: 100%;
+    background: #2d3748;
+    padding: 1.1rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary-gradient:hover:not(:disabled) {
+    background: #1a202c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary-gradient:active:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(var(--primary-color-end) / 20%);
+}
+
+.btn-primary-gradient:disabled {
+    opacity: 0.5;
+    background: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ------------------------------------------- */
+/* Link "Esqueceu a Senha" */
+/* ------------------------------------------- */
+.forgot-password-link {
+    color: var(--primary-color-end);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+.forgot-password-link:hover {
+    color: var(--primary-color-start);
+    text-decoration: underline;
+}
+
+/* ------------------------------------------- */
+/* Design Responsivo */
+/* ------------------------------------------- */
+@media (max-width: 768px) {
+    .login-card {
+        padding: 2.5rem;
+        max-width: 90%;
+    }
+    .login-card h2 {
+        font-size: 2rem;
+    }
+    .text-secondary-subtitle {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 2rem;
+        margin: 0.5rem;
+        border-radius: 18px;
+    }
+    .login-card h2 {
+        font-size: 1.8rem;
+    }
+    .form-control {
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+    }
+    .btn-primary-gradient {
+        padding: 1rem 1.25rem;
+        font-size: 1.05rem;
+    }
 }

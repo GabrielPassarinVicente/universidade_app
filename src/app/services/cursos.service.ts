@@ -8,6 +8,22 @@ export interface Curso {
   nome: string;
   cargaHoraria: string;
   departamentos_idDepartamentos: number;
+  professores?: number[];
+}
+
+export interface UpdateCursoRequest {
+  idCursos: number;
+  nome: string;
+  cargaHoraria: string;
+  departamentos_idDepartamentos: number;
+  professores?: number[];
+}
+
+export interface CreateCursoRequest {
+  nome: string;
+  cargaHoraria: string;
+  departamentos_idDepartamentos: number;
+  professores?: number[];
 }
 
 @Injectable({
@@ -22,17 +38,22 @@ private apiUrl = `${environment.apiUrl}/api/cursos`;
     return this.http.get<Curso[]>(this.apiUrl);
   }
 
-  criar(curso: Curso): Observable<Curso> {
-    return this.http.post<Curso>(this.apiUrl, curso);
+  criar(request: CreateCursoRequest): Observable<Curso> {
+    console.log('📝 Criando curso:', request);
+    console.log('Professores enviados:', request.professores, 'Tipos:', request.professores?.map(p => typeof p));
+    return this.http.post<Curso>(this.apiUrl, request);
   }
 
-  atualizar(curso: Curso): Observable<Curso> {
-    console.log('📝 Atualizando curso:', curso);
-    console.log('🔗 URL da requisição:', `${this.apiUrl}/${curso.idCursos}`);
-    return this.http.put<Curso>(`${this.apiUrl}/${curso.idCursos}`, curso);
+  atualizar(request: UpdateCursoRequest): Observable<Curso> {
+    console.log('📝 Atualizando curso:', request);
+    console.log('Professores enviados:', request.professores, 'Tipos:', request.professores?.map(p => typeof p));
+    console.log('🔗 URL da requisição:', `${this.apiUrl}/${request.idCursos}`);
+    console.log('JSON que será enviado:', JSON.stringify(request));
+    return this.http.put<Curso>(`${this.apiUrl}/${request.idCursos}`, request);
   }
 
   deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
+

@@ -1,68 +1,83 @@
-<div class="container-geral">
+<div class="container-geral container py-4">
 
   <div *ngIf="!mostrarFormulario">
-    <div class="cabecalho">
-      <h2>Lista de Cursos</h2>
-      <button class="btn-verde" (click)="abrirFormulario()">+ Novo Curso</button>
+    <div class="cabecalho d-flex align-items-center justify-content-between mb-3">
+      <h2 class="mb-0">Lista de Cursos</h2>
+      <button class="btn-verde btn btn-success" (click)="abrirFormulario()">+ Novo Curso</button>
     </div>
 
-    <table class="tabela">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome do Curso</th>
-          <th>Carga Horária</th>
-          <th>Departamento</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let curso of listaCursos">
-          <td>{{ curso.idCursos }}</td>
-          <td>{{ curso.nome }}</td>
-          <td>{{ curso.cargaHoraria }}</td>
-          <td>{{ getNomeDepartamento(curso.departamentos_idDepartamentos) }}</td>
-          <td class="acoes-coluna">
-            <button class="btn-azul" (click)="edita(curso)">Editar</button>
-            <button class="btn-vermelho" (click)="deletar(curso.idCursos)">Excluir</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="tabela table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Nome do Curso</th>
+            <th>Carga Horária</th>
+            <th>Departamento</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let curso of listaCursos">
+            <td>{{ curso.idCursos }}</td>
+            <td>{{ curso.nome }}</td>
+            <td>{{ curso.cargaHoraria }}</td>
+            <td>{{ getNomeDepartamento(curso.departamentos_idDepartamentos) }}</td>
+            <td class="acoes-coluna text-center">
+              <button class="btn-azul btn btn-primary btn-sm me-2" (click)="edita(curso)">Editar</button>
+              <button class="btn-vermelho btn btn-danger btn-sm" (click)="deletar(curso.idCursos)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <div *ngIf="mostrarFormulario" class="area-formulario">
-    <h2>{{ idEmEdicao ? 'Editar Curso' : 'Cadastrar Novo Curso' }}</h2>
-    
-    <form [formGroup]="formulario" (ngSubmit)="salvar()">
-      
-      <div class="campo">
-        <label>Nome do Curso:</label>
-        <input type="text" formControlName="nome" placeholder="Ex: Ciência da Computação">
+  <div *ngIf="mostrarFormulario" class="area-formulario card p-3">
+    <h2 class="h5 mb-3">{{ idEmEdicao ? 'Editar Curso' : 'Cadastrar Novo Curso' }}</h2>
+
+    <form [formGroup]="formulario" (ngSubmit)="salvar()" class="row g-3">
+
+      <div class="col-md-12 campo">
+        <label class="form-label">Nome do Curso:</label>
+        <input type="text" class="form-control" formControlName="nome" placeholder="Ex: Ciência da Computação">
       </div>
 
-      <div class="campo">
-        <label>Carga Horária:</label>
-        <input type="text" formControlName="cargaHoraria" placeholder="Ex: 3600h">
+      <div class="col-md-6 campo">
+        <label class="form-label">Carga Horária:</label>
+        <input type="text" class="form-control" formControlName="cargaHoraria" placeholder="Ex: 3600h">
       </div>
 
-      <div class="campo">
-        <label>Departamento:</label>
-        <select formControlName="departamentos_idDepartamentos">
+      <div class="col-md-6 campo">
+        <label class="form-label">Departamento:</label>
+        <select formControlName="departamentos_idDepartamentos" class="form-select">
           <option [value]="null" disabled selected>Selecione um departamento</option>
-          <option *ngFor="let depto of listaDepartamentos" [ngValue]="depto.id">
-            {{ depto.nome }}
-          </option>
+          <option *ngFor="let depto of listaDepartamentos" [ngValue]="depto.id">{{ depto.nome }}</option>
         </select>
       </div>
 
-      <div class="botoes">
-        <button type="submit" class="btn-verde" [disabled]="formulario.invalid">
-          {{ idEmEdicao ? 'Atualizar' : 'Salvar' }}
-        </button>
-        <button type="button" class="btn-cinza" (click)="cancelar()">Cancelar</button>
+      <div class="col-md-12 campo">
+        <label class="form-label">Professores (Selecione um ou mais):</label>
+        <div class="professor-checkbox-group">
+          <div *ngFor="let professor of listaProfessores" class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [id]="'prof_' + professor.idProfessores"
+              [checked]="isProfessorSelecionado(professor.idProfessores)"
+              (change)="toggleProfessor(professor.idProfessores)">
+            <label class="form-check-label" [for]="'prof_' + professor.idProfessores">
+              {{ professor.nome }}
+            </label>
+          </div>
+        </div>
       </div>
-    
+
+      <div class="col-12 d-flex gap-2 botoes justify-content-end mt-2">
+        <button type="submit" class="btn-verde btn btn-success" [disabled]="formulario.invalid">{{ idEmEdicao ? 'Atualizar' : 'Salvar' }}</button>
+        <button type="button" class="btn-cinza btn btn-secondary" (click)="cancelar()">Cancelar</button>
+      </div>
+
     </form>
   </div>
 

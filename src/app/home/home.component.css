@@ -1,112 +1,183 @@
-:host {
-  --nav-bg: #2c3e50;
-  --nav-color: #ecf0f1;
-  --accent-color: #3498db;
-}
-
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--nav-bg);
+  background: var(--primary-dark);
   padding: 1rem 2rem;
-  color: var(--nav-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
   position: relative;
 }
 
-.navbar-logo a {
+.navbar-logo {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
+}
+
+.navbar-logo a {
+  color: white;
   text-decoration: none;
-  color: var(--nav-color);
+  transition: opacity 0.3s ease;
 }
 
-.nav-links {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 20px;
-}
-
-.nav-links li a {
-  text-decoration: none;
-  color: var(--nav-color);
-  font-size: 1rem;
-  transition: color 0.3s;
-  padding: 0.5rem;
-}
-
-.nav-links li a:hover {
-  color: var(--accent-color);
-}
-
-.active-link {
-  border-bottom: 2px solid var(--accent-color);
-  color: var(--accent-color) !important;
-}
-
-.logout-link {
-  cursor: pointer;
-  color: #e74c3c !important;
-}
-
-.logout-link:hover {
-  color: #c0392b !important;
+.navbar-logo a:hover {
+  opacity: 0.9;
 }
 
 .menu-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
+  padding: 0.5rem;
 }
 
-.bar {
+.menu-toggle .bar {
   width: 25px;
   height: 3px;
-  background-color: var(--nav-color);
-  border-radius: 2px;
+  background-color: white;
+  margin: 3px 0;
+  transition: all 0.3s ease;
+  border-radius: 3px;
 }
 
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  /* Added position relative to stay above the diagonal line */
+  position: relative;
+  z-index: 2;
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  display: block;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.active-link {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+  font-weight: 600;
+}
+
+.logout-link {
+  color: #ff6b6b;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.logout-link:hover {
+  background-color: #ff6b6b;
+  color: white;
+  border-color: #ff6b6b;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  /* Hide diagonal line on mobile */
+  .navbar::before {
+    display: none;
+  }
+
   .menu-toggle {
     display: flex;
   }
 
   .nav-links {
-    display: none;
+    position: fixed;
+    left: -100%;
+    top: 70px;
     flex-direction: column;
+    background: var(--primary-dark);
     width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--nav-bg);
-    padding: 1rem 0;
     text-align: center;
-    z-index: 100;
+    transition: left 0.3s ease;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.3);
+    padding: 2rem 0;
+    gap: 0;
+    z-index: 999;
   }
 
   .nav-links.active {
-    display: flex;
+    left: 0;
   }
-  
-  .nav-links li {
-    margin: 10px 0;
+
+  .nav-item {
+    margin: 0.5rem 0;
+    width: 100%;
+  }
+
+  .nav-link {
+    padding: 1rem 2rem;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: none;
+  }
+
+  .logout-link {
+    margin: 0.5rem auto;
+    max-width: 200px;
   }
 }
 
-@media (max-width: 768px) {
-  .nav-links {
-    display: flex; 
-    flex-direction: column;
-    position: static;
-    background-color: transparent;
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.75rem;
   }
-  
-  .menu-toggle {
-    display: none;
+
+  .navbar-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    top: 60px;
+  }
+}
+
+/* Animation for menu toggle */
+@media (max-width: 768px) {
+  .menu-toggle.active .bar:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+
+  .menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.active .bar:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
   }
 }

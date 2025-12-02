@@ -49,6 +49,11 @@ idEmEdicao: number | null = null;
     this.alunoForm.reset(); 
   }
 
+  // Compatibilidade com templates existentes que chamam abrirFormulario()
+  abrirFormulario() {
+    this.exibirFormulario();
+  }
+
   salvarAluno() {
     if (this.alunoForm.valid) {
       const dados = this.alunoForm.value;

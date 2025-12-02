@@ -67,37 +67,24 @@ export class CursoComponent {
   salvar() {
     if (this.formulario.valid) {
       const dados = this.formulario.value;
-
       const departamentoId = Number(dados.departamentos_idDepartamentos);
-
-      // Garantir que TODOS os professores são números puros
-      const professorIds = this.professorSelecionados.map(p => {
-        if (typeof p === 'object' && p !== null && 'idProfessores' in p) {
-          return Number((p as any).idProfessores);
-        }
-        return Number(p);
-      });
-
-      const cursoParaSalvar: Curso = {
-        idCursos: this.idEmEdicao ? this.idEmEdicao : 0,
-        nome: dados.nome || '',
-        cargaHoraria: dados.cargaHoraria || '',
-        departamentos_idDepartamentos: departamentoId,
-        professores: professorIds
-      };
-
-      console.log('=== SALVANDO CURSO ===');
-      console.log('Dados do formulário:', dados);
-      console.log('Curso a salvar:', cursoParaSalvar);
-      console.log('Tipo do departamentoId:', typeof cursoParaSalvar.departamentos_idDepartamentos);
-      console.log('Modo edição?', !!this.idEmEdicao);
-      console.log('Professores selecionados (originais):', this.professorSelecionados);
-      console.log('Professores convertidos (IDs):', professorIds);
-      console.log('Tipos dos professores:', professorIds.map(p => typeof p));
-      console.log('JSON que será enviado:', JSON.stringify(cursoParaSalvar));
+      const professorIds = this.professorSelecionados.map(p => Number(p));
 
       if (this.idEmEdicao) {
-        this.cursoService.atualizar(cursoParaSalvar).subscribe({
+        // UPDATE
+        const updateRequest: UpdateCursoRequest = {
+          idCursos: this.idEmEdicao,
+          nome: dados.nome || '',
+          cargaHoraria: dados.cargaHoraria || '',
+          departamentos_idDepartamentos: departamentoId,
+          professores: professorIds
+        };
+
+        console.log('=== ATUALIZANDO CURSO ===');
+        console.log('Request para enviar:', updateRequest);
+        console.log('Tipos dos professores:', professorIds.map(p => typeof p));
+
+        this.cursoService.atualizar(updateRequest).subscribe({
           next: () => {
             this.carregarCursos();
             this.mostrarFormulario = false;
@@ -131,7 +118,19 @@ export class CursoComponent {
           }
         });
       } else {
-        this.cursoService.criar(cursoParaSalvar).subscribe({
+        // CREATE
+        const createRequest: CreateCursoRequest = {
+          nome: dados.nome || '',
+          cargaHoraria: dados.cargaHoraria || '',
+          departamentos_idDepartamentos: departamentoId,
+          professores: professorIds
+        };
+
+        console.log('=== CRIANDO CURSO ===');
+        console.log('Request para enviar:', createRequest);
+        console.log('Tipos dos professores:', professorIds.map(p => typeof p));
+
+        this.cursoService.criar(createRequest).subscribe({
           next: () => {
             this.carregarCursos();
             this.mostrarFormulario = false;
@@ -171,7 +170,7 @@ export class CursoComponent {
   }
 
   deletar(id: number) {
-    if(confirm('Deseja excluir?')) {
+    if (confirm('Deseja excluir?')) {
       this.cursoService.deletar(id).subscribe({
         next: () => {
           this.carregarCursos();
@@ -198,7 +197,8 @@ export class CursoComponent {
   getNomeDepartamento(id: number): string {
     return this.departamentoService.getNomeDepartamento(id);
   }
-   abrirFormulario() {
+
+  abrirFormulario() {
     this.mostrarFormulario = true;
     this.idEmEdicao = null;
     this.formulario.reset();
@@ -211,24 +211,13 @@ export class CursoComponent {
 
     this.mostrarFormulario = true;
     this.idEmEdicao = curso.idCursos;
-
-    // Garantir que professores são números
-    this.professorSelecionados = (curso.professores || []).map(p => {
-      // Se p for um objeto com idProfessores, pegar o ID
-      if (typeof p === 'object' && p !== null && 'idProfessores' in p) {
-        return (p as any).idProfessores;
-      }
-      // Se já for número, retornar como está
-      return Number(p);
-    });
-
-    console.log('Professores convertidos para IDs:', this.professorSelecionados);
+    this.professorSelecionados = curso.professores || [];
 
     this.formulario.setValue({
       nome: curso.nome,
       cargaHoraria: curso.cargaHoraria,
       departamentos_idDepartamentos: curso.departamentos_idDepartamentos,
-      professores: this.professorSelecionados
+      professores: curso.professores || []
     });
 
     console.log('Valores no formulário após carregar:', this.formulario.value);
@@ -236,22 +225,17 @@ export class CursoComponent {
   }
 
   toggleProfessor(professorId: number) {
-    // Garantir que professorId é número
-    const id = Number(professorId);
-    const index = this.professorSelecionados.indexOf(id);
-
+    const index = this.professorSelecionados.indexOf(professorId);
     if (index > -1) {
       this.professorSelecionados.splice(index, 1);
     } else {
-      this.professorSelecionados.push(id);
+      this.professorSelecionados.push(professorId);
     }
     console.log('Professores selecionados:', this.professorSelecionados);
-    console.log('Tipos:', this.professorSelecionados.map(p => typeof p));
   }
 
   isProfessorSelecionado(professorId: number): boolean {
-    const id = Number(professorId);
-    return this.professorSelecionados.includes(id);
+    return this.professorSelecionados.includes(professorId);
   }
 
   getNomeProfessores(ids?: number[]): string {

@@ -1,26 +1,29 @@
-<nav class="navbar">
-  <div class="navbar-logo">
-    <a routerLink="/">Universidade</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="navbar-logo navbar-brand">
+    <a routerLink="/" class="text-decoration-none text-white">Universidade</a>
   </div>
 
-  <button class="menu-toggle" (click)="toggleMenu()">
+  <button class="menu-toggle btn btn-link text-white" (click)="toggleMenu()" aria-label="Toggle menu">
     <span class="bar"></span>
     <span class="bar"></span>
     <span class="bar"></span>
   </button>
 
-  <ul class="nav-links" [class.active]="isMenuOpen">
-    <li>
-      <a routerLink="/alunos" routerLinkActive="active-link" (click)="closeMenu()">Aluno</a>
+  <ul class="nav-links navbar-nav" [class.active]="isMenuOpen">
+    <li class="nav-item">
+      <a routerLink="/alunos" routerLinkActive="active-link" (click)="closeMenu()" class="nav-link">Aluno</a>
     </li>
-    <li>
-      <a routerLink="/cursos" routerLinkActive="active-link" (click)="closeMenu()">Curso</a>
+    <li class="nav-item">
+      <a routerLink="/cursos" routerLinkActive="active-link" (click)="closeMenu()" class="nav-link">Curso</a>
     </li>
-    <li>
-      <a routerLink="/professores" routerLinkActive="active-link" (click)="closeMenu()">Professor</a>
+    <li class="nav-item">
+      <a routerLink="/professores" routerLinkActive="active-link" (click)="closeMenu()" class="nav-link">Professor</a>
     </li>
-    <li>
-      <a (click)="logout()" class="logout-link">Sair</a>
+    <li class="nav-item">
+      <a routerLink="/departamentos" routerLinkActive="active-link" (click)="closeMenu()" class="nav-link">Departamento</a>
+    </li>
+    <li class="nav-item">
+      <a (click)="logout()" class="logout-link nav-link">Sair</a>
     </li>
   </ul>
 </nav>
