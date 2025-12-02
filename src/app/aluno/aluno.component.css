@@ -1,102 +1,30 @@
-/* Responsive and polished styling for Aluno page */
-:root{
-  --accent-1: #667eea;
-  --accent-2: #764ba2;
-  --muted: #a0aec0;
-  --text: #2d3748;
+/* ============================================
+   ALUNO COMPONENT - Estilo Neutro e Profissional
+   ============================================ */
+
+/* Destacar ID na primeira coluna */
+.tabela tbody td:first-child {
+  font-weight: 600;
+  color: var(--primary);
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;background:linear-gradient(135deg,var(--accent-1) 0%,var(--accent-2) 100%);min-height:100vh;padding:1.5rem}
-
-.container-geral{
-  max-width:1200px;
-  width:100%;
-  margin:0 auto;
-  background:#fff;
-  border-radius:12px;
-  box-shadow:0 18px 50px rgba(0,0,0,0.12);
-  padding:2rem;
-  animation:fadeIn .35s ease-in;
+/* Botões com cores sólidas neutras */
+.acoes-coluna .btn-azul {
+  background: #3b82f6;
+  color: white;
 }
 
-@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-
-.cabecalho{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:3px solid var(--accent-1)}
-.cabecalho h2{font-size:1.6rem;color:var(--text);font-weight:700}
-
-/* Table styles (keeps rounded corners but allows horizontal scroll on small screens) */
-.tabela{width:100%;border-collapse:separate;border-spacing:0;margin-top:1rem;box-shadow:0 6px 18px rgba(0,0,0,0.06);border-radius:10px;overflow:auto;min-width:540px}
-.tabela thead{background:linear-gradient(135deg,var(--accent-1) 0%,var(--accent-2) 100%);color:#fff}
-.tabela thead th{padding:1rem 0.9rem;text-align:left;font-weight:600;font-size:.9rem;text-transform:uppercase;letter-spacing:.5px}
-.tabela tbody tr{background:#fff;transition:all .22s ease;border-bottom:1px solid #eef2f7}
-.tabela tbody tr:hover{background:#fbfdff;transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-.tabela tbody tr:last-child{border-bottom:none}
-.tabela tbody td{padding:1rem 0.9rem;color:#475569;font-size:.95rem;white-space:normal}
-
-.acoes-coluna{display:flex;gap:.5rem;flex-wrap:wrap}
-
-/* Buttons (kept original names + small enhancements) */
-button{padding:.6rem 1rem;border:none;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .18s ease;font-family:inherit}
-button:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.08)}
-
-.btn-verde{background:linear-gradient(135deg,#48bb78 0%,#38a169 100%);color:#fff}
-.btn-verde:hover{background:linear-gradient(135deg,#38a169 0%,#2f855a 100%)}
-.btn-verde:disabled{background:#cbd5e0;cursor:not-allowed;transform:none}
-
-.btn-azul{background:linear-gradient(135deg,#4299e1 0%,#3182ce 100%);color:#fff;padding:.45rem .9rem;font-size:.88rem}
-.btn-vermelho{background:linear-gradient(135deg,#f56565 0%,#e53e3e 100%);color:#fff;padding:.45rem .9rem;font-size:.88rem}
-.btn-cinza{background:#f1f5f9;color:#475569}
-
-/* Form area */
-.area-formulario{animation:fadeIn .35s ease-in}
-.area-formulario h2{font-size:1.25rem;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:3px solid var(--accent-1);font-weight:700}
-form{display:flex;flex-direction:column;gap:1rem}
-.campo{display:flex;flex-direction:column;gap:.4rem}
-.campo label{font-weight:600;color:var(--text);font-size:.95rem}
-.campo input,.campo select,.campo textarea{padding:.75rem 1rem;border:1.5px solid #e6edf3;border-radius:8px;font-size:1rem;background:#fff;transition:all .15s ease}
-.campo input:focus,.campo select:focus,.campo textarea:focus{outline:none;border-color:var(--accent-1);box-shadow:0 0 0 4px rgba(102,126,234,.06);transform:none}
-.campo input::placeholder{color:var(--muted)}
-
-.botoes{display:flex;gap:1rem;margin-top:1rem}
-
-/* Responsive breakpoints */
-@media (max-width:1200px){
-  .container-geral{padding:1.75rem}
-  .cabecalho h2{font-size:1.45rem}
+.acoes-coluna .btn-azul:hover {
+  background: #2563eb;
 }
 
-@media (max-width:992px){
-  .container-geral{padding:1.25rem}
-  .tabela thead th{font-size:.85rem;padding:.85rem}
-  .tabela tbody td{padding:.85rem}
+.acoes-coluna .btn-vermelho {
+  background: #dc2626;
+  color: white;
 }
 
-@media (max-width:768px){
-  body{padding:1rem}
-  .container-geral{padding:1rem;border-radius:10px}
-  .cabecalho{flex-direction:column;align-items:flex-start;gap:.75rem}
-  .cabecalho h2{font-size:1.25rem}
-  .tabela{min-width:480px}
-  .tabela thead th,.tabela tbody td{padding:.7rem .5rem}
-  .acoes-coluna{flex-direction:row;gap:.4rem}
-  .botoes{flex-direction:column}
-  button{width:100%}
+.acoes-coluna .btn-vermelho:hover {
+  background: #991b1b;
 }
 
-@media (max-width:576px){
-  .tabela{min-width:420px}
-  .tabela thead{font-size:.82rem}
-  .campo input,.campo select,.campo textarea{font-size:.95rem;padding:.6rem .8rem}
-  .botoes button{width:100%}
-}
-
-@media (max-width:420px){
-  .container-geral{padding:.85rem;border-radius:8px}
-  .cabecalho h2{font-size:1.1rem}
-  .tabela thead th{font-size:.75rem}
-  .tabela tbody td{font-size:.88rem;padding:.6rem .45rem}
-  .acoes-coluna{gap:.35rem}
-  button{padding:.55rem .75rem;font-size:.9rem;}
-}
 

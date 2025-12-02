@@ -56,6 +56,23 @@
         </select>
       </div>
 
+      <div class="col-md-12 campo">
+        <label class="form-label">Professores (Selecione um ou mais):</label>
+        <div class="professor-checkbox-group">
+          <div *ngFor="let professor of listaProfessores" class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [id]="'prof_' + professor.idProfessores"
+              [checked]="isProfessorSelecionado(professor.idProfessores)"
+              (change)="toggleProfessor(professor.idProfessores)">
+            <label class="form-check-label" [for]="'prof_' + professor.idProfessores">
+              {{ professor.nome }}
+            </label>
+          </div>
+        </div>
+      </div>
+
       <div class="col-12 d-flex gap-2 botoes justify-content-end mt-2">
         <button type="submit" class="btn-verde btn btn-success" [disabled]="formulario.invalid">{{ idEmEdicao ? 'Atualizar' : 'Salvar' }}</button>
         <button type="button" class="btn-cinza btn btn-secondary" (click)="cancelar()">Cancelar</button>

@@ -4,7 +4,7 @@
   margin: 0 auto;      /* Centraliza o conteúdo no meio da tela */
   min-height: 80vh;    /* Garante uma altura mínima */
   /* deixa espaço à esquerda para a sidebar (navbar) */
-  margin-left: 240px;
+  margin-left: 7%;
 }
 
 @media (max-width: 900px) {

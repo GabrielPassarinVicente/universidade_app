@@ -1,27 +1,25 @@
-/* Estilos para a página de Departamentos */
+/* ============================================
+   DEPARTAMENTO COMPONENT - Estilo Neutro e Profissional
+   ============================================ */
 
 /* Container principal */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1400px;
+  margin: 2rem auto;
   padding: 2rem;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Título da página */
+/* Título */
 h2 {
-  color: #2d3748;
+  color: var(--dark);
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  text-align: center;
-  color: white;
 }
 
-/* Botão Novo Departamento */
+/* Botão Novo */
 .btn-primary {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: var(--success);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -29,66 +27,53 @@ h2 {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
 }
 
 .btn-primary:hover {
+  background: var(--success-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.4);
 }
 
 /* Card do formulário */
 .form-box {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   margin-bottom: 2rem;
-  animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .form-box h3 {
-  color: #2d3748;
+  color: var(--dark);
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
 }
 
-/* Labels do formulário */
+/* Labels */
 .form-label {
-  color: #4a5568;
+  color: var(--dark);
   font-weight: 600;
   margin-bottom: 0.5rem;
   display: block;
 }
 
-/* Inputs do formulário */
+/* Inputs */
 .form-control {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border);
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  background-color: #f7fafc;
+  background-color: var(--light-gray);
 }
 
 .form-control:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--primary);
   background-color: white;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
 }
 
 textarea.form-control {
@@ -96,7 +81,7 @@ textarea.form-control {
   resize: vertical;
 }
 
-/* Grupo de botões de ação */
+/* Ações do formulário */
 .actions {
   display: flex;
   gap: 1rem;
@@ -104,33 +89,24 @@ textarea.form-control {
   margin-top: 1.5rem;
 }
 
-.btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-}
-
 .actions .primary {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: var(--success);
   color: white;
-  box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
 }
 
 .actions .primary:hover {
+  background: var(--success-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.4);
 }
 
 .btn-secondary {
-  background: #e2e8f0;
-  color: #4a5568;
+  background: var(--light-gray);
+  color: var(--dark);
+  border: 1px solid var(--border);
 }
 
 .btn-secondary:hover {
-  background: #cbd5e0;
+  background: var(--border);
   transform: translateY(-2px);
 }
 
@@ -139,7 +115,7 @@ textarea.form-control {
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .lista {
@@ -149,7 +125,7 @@ textarea.form-control {
 }
 
 .lista thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-dark);
   color: white;
 }
 
@@ -163,17 +139,23 @@ textarea.form-control {
 }
 
 .lista tbody tr {
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border);
   transition: background-color 0.2s ease;
 }
 
 .lista tbody tr:hover {
-  background-color: #f7fafc;
+  background-color: var(--light-gray);
 }
 
 .lista tbody td {
   padding: 1rem;
-  color: #4a5568;
+  color: var(--dark);
+}
+
+/* Destacar ID na primeira coluna */
+.lista tbody td:first-child {
+  font-weight: 600;
+  color: var(--primary);
 }
 
 /* Botões da tabela */
@@ -194,11 +176,10 @@ textarea.form-control {
   background: #3b82f6;
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
 
 .lista .danger {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: var(--danger);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -206,30 +187,14 @@ textarea.form-control {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
 }
 
 .lista .danger:hover {
+  background: var(--danger-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4);
 }
 
 /* Responsividade */
-@media (max-width: 1024px) {
-  .container {
-    padding: 1.5rem;
-  }
-
-  .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .lista {
-    min-width: 700px;
-  }
-}
-
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
@@ -237,14 +202,6 @@ textarea.form-control {
 
   h2 {
     font-size: 1.5rem;
-  }
-
-  .form-box {
-    padding: 1.5rem;
-  }
-
-  .form-box h3 {
-    font-size: 1.3rem;
   }
 
   .actions {
@@ -255,83 +212,10 @@ textarea.form-control {
     width: 100%;
   }
 
-  .btn-primary {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  .lista {
-    font-size: 0.875rem;
-  }
-
   .lista thead th,
   .lista tbody td {
     padding: 0.75rem 0.5rem;
-  }
-
-  .lista .btn-outline-primary,
-  .lista .danger {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.75rem;
-    display: block;
-    width: 100%;
-    margin: 0.25rem 0;
-  }
-
-  .lista .btn-outline-primary {
-    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
   }
 }
 
-@media (max-width: 480px) {
-  .container {
-    padding: 0.5rem;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-  }
-
-  .form-box {
-    padding: 1rem;
-  }
-
-  .form-box h3 {
-    font-size: 1.2rem;
-  }
-
-  .form-control {
-    padding: 0.65rem;
-    font-size: 0.9rem;
-  }
-
-  .lista {
-    font-size: 0.8rem;
-  }
-
-  .lista thead th,
-  .lista tbody td {
-    padding: 0.6rem 0.4rem;
-    font-size: 0.8rem;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 360px) {
-  h2 {
-    font-size: 1.2rem;
-  }
-
-  .form-box {
-    padding: 0.75rem;
-  }
-
-  .lista {
-    font-size: 0.75rem;
-  }
-}
